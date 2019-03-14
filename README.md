@@ -1,1 +1,1 @@
-inhan is king, king is inhan
+inhan is god,god is inhan
