@@ -1,3 +1,7 @@
+<<<<<<< master
+=======
+//구간 합
+>>>>>>> master
 #include <iostream>
 #include <cmath>
 #include <vector>
