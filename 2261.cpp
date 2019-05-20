@@ -113,11 +113,11 @@ void CP(pair<int,int> arr[],set<pair<int,int>> point,int start,int n){
         auto upper = point.upper_bound(make_pair(100000,curpoint.second+tempdist));
         for(auto it = lower; it!= upper; it++)
         {
-            int d = pow(curpoint.second-it->first,2)+pow(curpoint.first-it->second,2);
+            int d = pow(curpoint.second-it->second,2)+pow(curpoint.first-it->first,2);
             if(d<dist)
                 dist = d;
         }
-        point.insert(make_pair(curpoint.second,curpoint.first));
+        point.insert(make_pair(curpoint.first,curpoint.second));
     }
     cout<<dist<<endl;
 }
@@ -137,10 +137,10 @@ int main(){
     */
     //dist갱신
     set<pair<int,int>> point;
-    point.insert(make_pair(arr[0].second,arr[0].first));
-    point.insert(make_pair(arr[1].second,arr[1].first));
+    point.insert(make_pair(arr[0].first,arr[0].second));
+    point.insert(make_pair(arr[1].first,arr[1].second));
     
-    dist = pow(abs(arr[0].first-arr[1].first),2)+pow(abs(arr[0].second-arr[1].second),2);
+    dist = pow(arr[0].first-arr[1].first,2)+pow(arr[0].second-arr[1].second,2);
     
     //n개의 점 거치면서 좌측 최대 6개 점 확인(증명)
     CP(arr,point,2,n);
