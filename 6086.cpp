@@ -13,7 +13,7 @@ struct edge{
     edge(int to,int cap):to(to),cap(cap){}
 };
 
-int visited[100] = {0};
+deque<int> visited(100);
 deque<deque<edge*>> adj(100);
 
 int dfs(int p, int cap){
@@ -49,14 +49,22 @@ int ford_fullkerson(int start){
     int ans = 0;
     while(true){
         int flow;
-        for(int i = 0; i<100; i++)
-            visited[i] = 0;
+        fill(visited.begin(),visited.end(),0);
+        
         flow = dfs(start,0);
         if(flow == 0)
             break;
         ans += flow;
     }
     return ans;
+}
+void add_edge(int u, int v, int cap) {
+    edge* next = new edge(v, cap);
+    edge* prev = new edge(u, 0);
+    next->prev = prev;
+    prev->prev = next;
+    adj[u].push_back(next);
+    adj[v].push_back(prev);
 }
 
 int main(){
@@ -75,7 +83,7 @@ int main(){
         
         
         cin>>to;
-
+        
         if(to >= 'A' && to<= 'Z')
             to -= 'A';
         else if(to >= 'a'&& to<= 'z')
@@ -84,25 +92,8 @@ int main(){
         
         cin>>weight;
         
-        edge *e = new edge(to,weight);
-        edge *e2 = new edge(from,0);
-        
-        e2->prev = e;
-        e->prev = e2;
-        
-        adj[from].push_back(e);
-        adj[to].push_back(e2);
-        
-        //========================
-        
-        *e = edge(from,weight);
-        *e2 = edge(to,0);
-        
-        e2->prev = e;
-        e->prev = e2;
-        
-        adj[to].push_back(e);
-        adj[from].push_back(e2);
+        add_edge(from, to,weight);
+        add_edge(to, from, weight);
         
     }
     
