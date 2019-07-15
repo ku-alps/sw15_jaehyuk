@@ -1,74 +1,70 @@
 //1967 트리의 지름
 
 #include <iostream>
-#include <deque>
+#include <vector>
 #include <algorithm>
-using namespace std;
-int n;
-int visited[10000] = {0};
-int edge[10000][10000] = {0};
-//deque<int> radius[10000];
-int rad[10000][10000] = {0};
 
-int dfs(int node,int dist){
-    if(visited[node] == 1)
-        return dist;
-    int cnt = 0;
+using namespace std;
+
+int n;
+
+struct edge{
+    int from;
+    int weight;
+    int to;
+    edge(int from,int to,int weight):from(from),weight(weight),to(to){};
+};
+vector<int> visited;
+vector<vector<edge*>> adj;
+void create_edge(int from, int to,int weight){
+    edge* edge1 = new edge(from,to,weight);
+    adj[from].push_back(edge1);
+}
+pair<int,int> dfs(int node,int dist){
     
     visited[node] = 1;
+    pair<int,int> localmax = make_pair(node,0);
+    //pair<int,int> curmax = make_pair(node,dist);
     
-    for(int i = 0; i<n; i++){
-        if(edge[node][i] > 0 && visited[i] <= 0){
-            rad[node][i] = dfs(i,edge[node][i]);
+    for(int i = 0; i<adj[node].size(); i++){
+        if(visited[adj[node][i]->to] == 0){
+            pair<int,int> temp;
+            temp = dfs(adj[node][i]->to,adj[node][i]->weight);
+            
+            if(localmax.second < temp.second){
+                localmax = temp;
+            }
         }
     }
-   
-    int localmax = 0;
-    for(int i = 0; i<n; i++){
-        cnt += rad[node][i];
-    
-        if(localmax < rad[node][i])
-            localmax = rad[node][i];
-    }
-    if(cnt == 0)
-        return dist;
-    else
-        return dist+localmax;
+    localmax.second+= dist;
+    return localmax;
 }
 
 int main(){
     cin>>n;
+    adj.resize(n);
+    visited.resize(n);
+    fill(visited.begin(),visited.end(),0);
+    
     int p,c,w;
     for(int i = 0; i<n-1; i++){
         cin>>p>>c>>w;
-        edge[p-1][c-1] = w;
-        edge[c-1][p-1] = w;
+        create_edge(p-1,c-1,w);
+        create_edge(c-1,p-1,w);
     }
-    dfs(0,0);
-    //radius.resize(n);
     /*
     for(int i = 0; i<n; i++)
     {
-        for(int j = 0; j<n; j++)
-        {
-            cout<<edge[i][j]<<" ";
-        }
-        cout<<endl;
-    }
-    cout<<endl;
-    for(int i = 0; i<n; i++)
-    {
-        for(int j = 0; j<n; j++)
-        {
-            cout<<rad[i][j]<<" ";
+        for(int j = 0; j<adj[i].size(); j++){
+            cout<<" "<<adj[i][j]->to<<" ";
         }
         cout<<endl;
     }*/
-    int total = 0;
-    int localmax = 0;
-    int a ,b;
-
+    pair<int,int> _max = dfs(0,0);
+    //cout<<_max.first<<" "<<_max.second<<endl;
     
+    fill(visited.begin(),visited.end(),0);
     
-    cout<<total<<endl;
+    pair<int,int> final_max = dfs(_max.first,0);
+    cout<<final_max.second<<endl;
 }
