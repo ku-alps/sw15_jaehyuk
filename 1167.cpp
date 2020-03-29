@@ -1,4 +1,5 @@
-#include <bits/stdc++.h>
+#include <vector>
+#include<iostream>
 
 using namespace std;
 vector<vector<pair<int,int> > > arr;
@@ -7,16 +8,23 @@ int V;
 int leaf;
 int _max=0;
 
-int dfs(int idx,int len){
-    if(visited[idx] == 1) return len;
+pair<int,int> dfs(int idx,int len){
+    if(visited[idx] == 1)
+        return make_pair(idx, 0);
     visited[idx] = 1;
-    int temp = len;
+    
+    pair<int,int> temp = make_pair(idx,len);
+    if(_max<temp.second){
+        _max = temp.second;
+        leaf = temp.first;
+    }
     for(int i = 0; i<arr[idx].size(); i++){
         if(visited[arr[idx][i].first] == 0){
             temp = dfs(arr[idx][i].first,len+arr[idx][i].second);
+            
         }
     }
-    return temp;
+    return make_pair(leaf,_max);
 }
 
 int main()
@@ -39,10 +47,12 @@ int main()
             arr[vertex].push_back(make_pair(input,input2));
         }
     }
-
-    cout<<"?"<<dfs(0,0)<<endl;
-    cout<<leaf<<" "<<_max<<endl;
+    
+    dfs(vertex,0).first;
+    //cout<<leaf<<" "<<_max<<endl;
     fill(visited.begin(),visited.end(),0);
-    cout<<"?"<<dfs(leaf,0)<<endl;
-    cout<<leaf<<" "<<_max<<endl;
+    _max = 0;
+    dfs(leaf,0).first;
+    //cout<<leaf<<" "<<_max<<endl;
+    cout<<_max;
 }
