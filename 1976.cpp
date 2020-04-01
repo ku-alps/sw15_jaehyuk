@@ -6,32 +6,6 @@ int** adj;
 int* path;
 int* node;
 
-void fw(){
-    for(int i = 0; i<N; i++){
-        for(int j = 0; j<N; j++){
-            if(adj[i][j] == 0)
-            {
-                if(i == j){
-                    adj[i][j] = 1;
-                    continue;
-                }
-                adj[i][j] = INF;
-            }
-            
-        }
-    }
-    
-    for(int k = 0; k<N; k++){
-        for(int j = 0; j<N; j++){
-            for(int i = 0; i<N; i++)
-            {
-                if(adj[i][j] > adj[i][k]+adj[k][j]){
-                    adj[i][j] = adj[i][k]+adj[k][j];
-                }
-            }
-        }
-    }
-}
 int find(int idx)
 {
     if(node[idx]<0)
@@ -91,17 +65,4 @@ int main(){
         }
     }
     cout<<"YES"<<'\n';
-    /*
-    fw();
-    for(int i = 1; i<M; i++){
-        
-        if(adj[path[i-1]-1][path[i]-1]>=INF){
-            cout<<"NO"<<'\n';
-            return 0;
-        }
-    }
-    cout<<"YES"<<'\n';
-     */
-    
-    
 }
