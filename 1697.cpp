@@ -3,7 +3,7 @@
 using namespace std;
 
 int N,K;
-int arr[100001] = {INT_MAX};
+vector<int> arr(100001,INT_MAX);
 queue<pair<int,int> > que;
 int visited[100001] = {0};
 
@@ -11,7 +11,7 @@ int main(){
     cin>>N>>K;
     arr[N]= 0;
     if(N>K){
-        cout<<K-N;
+        cout<<N-K;
         return 0;
     }
     int sec = 0;
@@ -26,10 +26,10 @@ int main(){
             cout<<sec;
             return 0;
         }
-
         if(visited[cur] == 1)
             continue;
         visited[cur] = 1;
+
         if(cur*2<=100000){
             if(arr[cur*2]>sec+1){
                 arr[cur*2] = sec+1;
