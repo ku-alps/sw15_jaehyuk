@@ -15,6 +15,7 @@ int calc(long long num,int cnt){
     }
     return (num*calc(num,cnt-1)%C)%C;
 }
+
 int main(){
     ios_base::sync_with_stdio(false);
 	cin.tie(0);
