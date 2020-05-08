@@ -33,7 +33,13 @@ int main(){
         for(int j = box[i].first.first; j<box[i].first.second; j++){
             temp = max(temp, cap[j]);
         }
-        int surp = min(box[i].second, C-temp);
+        int surp;
+        if(box[i].second>C-temp){
+            surp = C-temp;
+        }
+        else{
+            surp = box[i].second;
+        }
         ans += surp;
         for(int j = box[i].first.first; j<box[i].first.second; j++){
             cap[j] += surp;
