@@ -6,6 +6,8 @@ void solve(){
     int a,b,c,d;
     cin>>a>>b>>c>>d;
     int visited[100001][4] = {0};
+    //visited[x][y] :
+    // x -> 정해지지 않은 물의 양 y -> 0:물통1이 0, 1:물통2가 0, 2:물통1이 a, 3:물통2가 b
     queue<pair<int,pair<int,int> > > que;
     que.push(make_pair(0,make_pair(0,0)));
     que.push(make_pair(0,make_pair(0,1)));
@@ -21,20 +23,20 @@ void solve(){
                 return;
             }
         }
-        if(d == b){
-            if(y == 2 && x == c){
+        if(d == x){
+            if(y == 2 && x == d){
                 cout<<dist;
                 return;
             }
         }
         if(c == 0){
-            if(y == 1 && y == d){
+            if(y == 1 && x == 0){
                 cout<<dist;
                 return;
             }
         }
-        if(c == a){
-            if(y == 3&& y == d){
+        if(c == x){
+            if(y == 3&& x == d){
                 cout<<dist;
                 return;
             }
@@ -62,7 +64,6 @@ void solve(){
             }
         }
         else{
-            mx2 = 0;
             if(visited[mx][0]==0){
                 que.push(make_pair(dist+1,make_pair(mx,0)));
             }
