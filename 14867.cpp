@@ -7,7 +7,7 @@ void solve(){
     cin>>a>>b>>c>>d;
     int visited[100001][4] = {0};
     //visited[x][y] :
-    // x -> 정해지지 않은 물의 양 y -> 0:물통1이 0, 1:물통2가 0, 2:물통1이 a, 3:물통2가 b
+    // x -> 정해지지 않은 물의 양 y -> 0:물통1이 0, 1:물통2가 0, 2:물통1이 c, 3:물통2가 d
     queue<pair<int,pair<int,int> > > que;
     que.push(make_pair(0,make_pair(0,0)));
     que.push(make_pair(0,make_pair(0,1)));
@@ -17,26 +17,27 @@ void solve(){
         int x = que.front().second.first;
         int y = que.front().second.second;
         que.pop();
-        if(d == 0){
-            if(y == 0 && x == c){
+        if(y == 0){//물통 1이 0
+            if(c == 0 && d == x){
                 cout<<dist;
                 return;
             }
         }
-        if(d == x){
-            if(y == 2 && x == d){
+        if(y == 1){//물통 2가 0이 목표일때
+            if(d == 0 && x == c){
                 cout<<dist;
                 return;
             }
         }
-        if(c == 0){
-            if(y == 1 && x == 0){
+        
+        if(y == 2){//물통 1이 c
+            if(x == d){
                 cout<<dist;
                 return;
             }
         }
-        if(c == x){
-            if(y == 3&& x == d){
+        if(y == 3){//물통 2가 d
+            if(x == c){
                 cout<<dist;
                 return;
             }
@@ -50,39 +51,27 @@ void solve(){
         if(visited[x][2] == 0){
             que.push(make_pair(dist+1,make_pair(x,2)));
         }
-        if(visited[y][3] == 0){
+        if(visited[x][3] == 0){
             que.push(make_pair(dist+1,make_pair(y,3)));
         }
         //MOVE *2
         
         int mx2;
-        int mx = min(a,y+x);
-        if(mx == a){
-            mx2 = y+x-a;
-            if(visited[mx2][3]==0){
-                que.push(make_pair(dist+1,make_pair(mx2,3)));
-            }
+        int temp;
+        if(y == 0){
+            temp = 0;
+            if(visited[temp][0])
+        }
+        else if(y == 1){
+            temp = 0;
+        }
+        else if(y == 2){
+            temp = c;
         }
         else{
-            if(visited[mx][0]==0){
-                que.push(make_pair(dist+1,make_pair(mx,0)));
-            }
+            temp = d;
         }
-        int my2;
-        int my = min(b,y+x);
-        if(my == b){
-            my2 = y+x-b;
-            if(visited[my2][2]==0){
-                que.push(make_pair(dist+1,make_pair(my2,2)));
-            }
-        }
-        else{
-            my2 = 0;
-            if(visited[my][1]==0){
-                que.push(make_pair(dist+1,make_pair(my,1)));
-            }
-        }
-        
+
         //POOR *2
         if(visited[x][0] == 0){
             que.push(make_pair(dist+1,make_pair(x,0)));
