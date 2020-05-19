@@ -15,20 +15,20 @@ void oper(int num)
       vector<pair<int, int> > temp_vec;
       for (int row = 0; row < n; row++)
       {
-        if (board[row][col].second == 0 || board[row][col].first == 0)
+        if (arr[row][col].second == 0 || arr[row][col].first == 0)
         {
           continue;
         }
-        pair<int, int> temp = board[row][col];
+        pair<int, int> temp = arr[row][col];
         row++;
         int flag = 0;
         while (row < n)
         {
-          if (board[row][col].first != 0)
+          if (arr[row][col].first != 0)
           {
-            if (temp.second == board[row][col].second)
+            if (temp.first == arr[row][col].first&&arr[row][col].second!=0)
             {
-              temp_vec.push_back(make_pair(temp.first + board[row][col].first, temp.second + 1));
+              temp_vec.push_back(make_pair(temp.first + arr[row][col].first, temp.second + 1));
               flag = 1;
               break;
             }
@@ -50,16 +50,19 @@ void oper(int num)
       for (int i = 0; i < n; i++)
       {
         if (i < temp_vec.size())
-        {
+        {/*
           arr[i][col].first = temp_vec[i].first;
-          arr[i][col].second = temp_vec[i].second;
+          arr[i][col].second = temp_vec[i].second;*/
+          arr[i][col] = make_pair(temp_vec[i].first,temp_vec[i].second);
         }
         else
         {
           arr[i][col] = make_pair(0, 0);
         }
       }
+        
     }
+    
   }
   else if (num == 1)
   { //right
@@ -68,20 +71,20 @@ void oper(int num)
       vector<pair<int, int> > temp_vec;
       for (int col = n - 1; col >= 0; col--)
       {
-        if (board[row][col].second == 0 || board[row][col].first == 0)
+        if (arr[row][col].second == 0 || arr[row][col].first == 0)
         {
           continue;
         }
-        pair<int, int> temp = board[row][col];
+        pair<int, int> temp = arr[row][col];
         col--;
         int flag = 0;
         while (col >= 0)
         {
-          if (board[row][col].first != 0)
+          if (arr[row][col].first != 0)
           {
-            if (temp.second == board[row][col].second)
+            if (temp.first == arr[row][col].first&&arr[row][col].second!=0)
             {
-              temp_vec.push_back(make_pair(temp.first + board[row][col].first, temp.second + 1));
+              temp_vec.push_back(make_pair(temp.first + arr[row][col].first, temp.second + 1));
               flag = 1;
               break;
             }
@@ -104,9 +107,10 @@ void oper(int num)
       for (int i = n - 1; i >= 0; i--)
       {
         if (k < temp_vec.size())
-        {
+        {/*
           arr[row][i].first = temp_vec[k].first;
-          arr[row][i].second = temp_vec[k].second;
+          arr[row][i].second = temp_vec[k].second;*/
+          arr[row][i] = make_pair(temp_vec[k].first,temp_vec[k].second);
         }
         else
         {
@@ -123,20 +127,20 @@ void oper(int num)
       vector<pair<int, int> > temp_vec;
       for (int row = n - 1; row >= 0; row--)
       {
-        if (board[row][col].second == 0 || board[row][col].first == 0)
+        if (arr[row][col].second == 0 || arr[row][col].first == 0)
         {
           continue;
         }
-        pair<int, int> temp = board[row][col];
+        pair<int, int> temp = arr[row][col];
         row--;
         int flag = 0;
         while (row >= 0)
         {
-          if (board[row][col].first != 0)
+          if (arr[row][col].first != 0)
           {
-            if (temp.second == board[row][col].second)
+            if (temp.first == arr[row][col].first&&arr[row][col].second!=0)
             {
-              temp_vec.push_back(make_pair(temp.first + board[row][col].first, temp.second + 1));
+              temp_vec.push_back(make_pair(temp.first + arr[row][col].first, temp.second + 1));
               flag = 1;
               break;
             }
@@ -159,9 +163,10 @@ void oper(int num)
       for (int i = n - 1; i >= 0; i--)
       {
         if (k < temp_vec.size())
-        {
+        {/*
           arr[i][col].first = temp_vec[k].second;
-          arr[i][col].second = temp_vec[k].second;
+          arr[i][col].second = temp_vec[k].second;*/
+          arr[i][col] = make_pair(temp_vec[k].first,temp_vec[k].second);
         }
         else
         {
@@ -178,20 +183,20 @@ void oper(int num)
       vector<pair<int, int> > temp_vec;
       for (int col = 0; col < n; col++)
       {
-        if (board[row][col].second == 0 || board[row][col].first == 0)
+        if (arr[row][col].second == 0 || arr[row][col].first == 0)
         {
           continue;
         }
-        pair<int, int> temp = board[row][col];
+        pair<int, int> temp = arr[row][col];
         col++;
         int flag = 0;
         while (col < n)
         {
-          if (board[row][col].first != 0)
+          if (arr[row][col].first != 0)
           {
-            if (temp.second == board[row][col].second)
+            if (temp.first == arr[row][col].first&&arr[row][col].second!=0)
             {
-              temp_vec.push_back(make_pair(temp.first + board[row][col].first, temp.second + 1));
+              temp_vec.push_back(make_pair(temp.first + arr[row][col].first, temp.second + 1));
               flag = 1;
               break;
             }
@@ -213,9 +218,10 @@ void oper(int num)
       for (int i = 0; i < n; i++)
       {
         if (i < temp_vec.size())
-        {
+        {/*
           arr[row][i].first = temp_vec[i].first;
-          arr[row][i].second = temp_vec[i].second;
+          arr[row][i].second = temp_vec[i].second;*/
+          arr[row][i] = make_pair(temp_vec[i].first,temp_vec[i].second);
         }
         else
         {
@@ -266,14 +272,21 @@ int main()
                 arr[i][j].second = board[i][j].second;
               }
             }
-            //arr = oper(0,arr);
-
+            /*
+            for(int i= 0; i<n; i++){
+              for(int j = 0; j<n; j++){
+                cout<<arr[i][j].first<<" ";
+              }
+              cout<<endl;
+            }
+            cout<<endl;
+            */
             oper(a);
             oper(b);
             oper(c);
             oper(d);
             oper(e);
-
+            
             for (int i = 0; i < n; i++)
             {
               for (int j = 0; j < n; j++)
@@ -286,5 +299,10 @@ int main()
       }
     }
   }
+  if(mmax == -1){
+    cout<<0<<'\n';
+    return 0;
+  }
   cout << mmax << '\n';
+  return 0;
 }
