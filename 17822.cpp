@@ -83,11 +83,15 @@ int remove(int r,int c){
         int y = idx.second;
         
         que.pop();
-        if(visited[x][y] == 1 || board[x][y] == -1){
+        if(visited[x][y] == 1 ){
+            continue;
+        }
+        visited[x][y] = 1;
+        if(board[x][y] == -1){
             continue;
         }
         vec.push_back(make_pair(x,y));
-        visited[x][y] = 1;
+
         if(x == 1){
             if(y == 0){
                 if(visited[x][y+1] == 0&&board[x][y]==board[x][y+1]){
@@ -202,7 +206,6 @@ int remove(int r,int c){
                 }
             }
         }
-        
     }
     if(vec.size()>1){
         for(int i = 0; i<vec.size(); i++){
@@ -215,13 +218,10 @@ int mysum(){
     int sum = 0;
     for(int i = 1; i<=N; i++){
         for(int j = 0; j<M; j++){
-            cout<<board[i][j]<<" ";
-            
             if(board[i][j]!=-1){
                 sum+=board[i][j];
             }
         }
-        cout<<endl;
     }
     return sum;
 }
@@ -242,18 +242,17 @@ double myavg(){
         return 0;
     return (double)sum/(double)cnt;
 }
-void edit(int avg){
-
+void edit(double avg){
     for(int i = 1; i<=N; i++){
         for(int j = 0; j<M; j++){
-            
-            if(board[i][j]!=-1&&avg<board[i][j]){
-                board[i][j]--;
+            if(board[i][j] != -1){
+                if(avg<board[i][j]){
+                    board[i][j] -=1;
+                }
+                else if(avg>board[i][j]){
+                    board[i][j] += 1;
+                }
             }
-            else if(board[i][j]!=-1&&avg>board[i][j]){
-                board[i][j]++;
-            }
-
         }
     }
 }
@@ -272,16 +271,18 @@ int main(){
             rotate2(x*idx,d,k);
             idx++;
         }
-        int rmcnt = 0;
+        
         int temp = 0;
+        int rmcnt = 0;
         for(int i = 1; i<=N; i++){
             for(int j = 0; j<M; j++){
-                //temp = remove(i,j);
+                temp = remove(i,j);
                 if(temp > 1){
                     rmcnt = 1;
                 }
             }
         }
+        //cout<<"rmcnt:"<<rmcnt<<endl;
         if(rmcnt == 0){
             double avg = myavg();
             if(avg == 0){
