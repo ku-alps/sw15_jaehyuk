@@ -49,9 +49,6 @@ struct status move(status st,int k){
     nst.ry = ry;
     nst.bx = bx;
     nst.by = by;
-    nst.hx = hx;
-    nst.hy = hy;
-    nst.dist = st.dist;
     return nst;
 }
 
@@ -85,14 +82,14 @@ int main(){
             cout<<"-1";
             return 0;
         }
+        if(visited[cur.rx][cur.ry][cur.bx][cur.by] == 1)
+            continue;
+        visited[cur.rx][cur.ry][cur.bx][cur.by] =1;
         if(cur.rx == cur.hx && cur.ry == cur.hy){
             cout<<cur.dist<<'\n';
             return 0;
         }
-        //cout<<cur.rx<<" "<<cur.ry<<" "<<cur.bx<<" "<<cur.by<<endl;
-        //cout<<cur.dist<<endl;
         for(int i = 0; i<4; i++){
-            //cout<<cur.dist<<endl;
             status next = move(cur,i);  
             
             if(next.bx == next.hx && next.by == next.hy)
@@ -122,13 +119,8 @@ int main(){
                     }
                 }
             }
-
-            if(visited[next.rx][next.ry][next.bx][next.by] == 0){
-                //cout<<"push status: "<<i<<endl;
-                next.dist+=1;
-                que.push(next);
-                visited[next.rx][next.ry][next.bx][next.by] = 1;
-            }
+            next.dist+=1;
+            que.push(next);
         }
     }
     cout<<"-1"<<endl;

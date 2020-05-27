@@ -116,5 +116,5 @@ int main(){
         cmd_cnt++;
     }
     move(snake.front().x,snake.front().y,snake.front().pos,10000);
-    cout<<T+1;
+    std::cout<<T+1;
 }
